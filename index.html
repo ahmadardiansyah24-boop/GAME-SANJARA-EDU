@@ -5,9 +5,33 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>SANJARA EDU — Knowledge Battle</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style>  :root{    --bg:#070B14;    --a:#3B82F6;    --b:#F59E0B;    --correct:#22C55E;    --wrong:#EF4444;    --text:#F8FAFC;    --muted:#94A3B8;    --panel:rgba(7,11,20,0.86);  }  *{box-sizing:border-box; margin:0; padding:0;}  html,body{    width:100%; height:100%; overflow:hidden;    background:var(--bg); color:var(--text);    font-family:'Inter',system-ui,sans-serif;  }  #stage{position:fixed; inset:0;}  #ownerWatermark{    position:absolute; bottom:10px; right:14px; z-index:30;    font-family:'Space Grotesk',sans-serif; font-weight:600;    font-size:.75rem; letter-spacing:.06em;    color:rgba(255,255,255,.55);    text-shadow:0 1px 2px rgba(0,0,0,.6);    pointer-events:none; user-select:none;  }  /* ---- Camera layer ---- */  #cam-wrap{position:absolute; inset:0; overflow:hidden; background:#000;}  #video{    position:absolute; top:0; left:0;    width:100%; height:100%;    transform:scaleX(-1);    object-fit:cover;    transition:transform .2s ease;  }  #camZoomWrap{display:none; flex-direction:column; gap:4px; margin-top:2px;}  #camZoomWrap label{font-size:.72rem; color:var(--muted); letter-spacing:.2px;}  #camZoomSlider{width:100%;}  #cam-placeholder{    position:absolute; inset:0; display:flex; flex-direction:column;    align-items:center; justify-content:center; gap:18px;    background:radial-gradient(circle at 50% 40%, #131C30 0%, #070B14 70%);  }  #cam-placeholder p{color:var(--muted); font-size:1.1rem; max-width:480px; text-align:center;}  #startCamBtn{    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.05rem;    background:var(--a); color:#fff; border:none; padding:16px 32px;    border-radius:999px; cursor:pointer; letter-spacing:.2px;  }  #startCamBtn:hover{filter:brightness(1.08);}  /* ---- Divider ---- */  #divider{    position:absolute; top:0; bottom:0; left:50%; width:2px;    background:linear-gradient(to bottom, transparent 0%, rgba(255,255,255,.55) 12%, rgba(255,255,255,.55) 88%, transparent 100%);    z-index:5; transform:translateX(-1px);  }  /* ---- Zones (color wash on check) ---- */  .zone{    position:absolute; top:0; bottom:0; width:50%;    transition:background .4s ease;    z-index:4; pointer-events:none;  }  #zoneA{left:0;background:rgba(59,130,246,0);}#zoneB{left:50%;background:rgba(245,158,11,0);}
-#zoneA.correct,#zoneB.correct{background:linear-gradient(90deg,rgba(34,197,94,.72),rgba(34,197,94,.56));box-shadow:inset 0 0 90px rgba(34,197,94,.30);}
-#zoneA.wrong,#zoneB.wrong{background:linear-gradient(90deg,rgba(239,68,68,.56),rgba(239,68,68,.72));box-shadow:inset 0 0 90px rgba(239,68,68,.28);}
-.zone.correct::after,.zone.wrong::after{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:clamp(2.1rem,5vw,4rem);letter-spacing:1.5px;padding:12px 28px;border-radius:18px;color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.28);backdrop-filter:blur(4px);pointer-events:none;z-index:5;}
+/* REVEAL: satu sisi arena penuh hijau/merah, bukan hanya kartu jawaban */
+#zoneA.correct,#zoneB.correct{
+  background:rgba(34,197,94,.80);
+  box-shadow:inset 0 0 140px rgba(187,247,208,.22),inset 0 0 0 3px rgba(187,247,208,.55);
+}
+#zoneA.wrong,#zoneB.wrong{
+  background:rgba(239,68,68,.80);
+  box-shadow:inset 0 0 140px rgba(254,202,202,.18),inset 0 0 0 3px rgba(254,202,202,.45);
+}
+.zone.correct::after,.zone.wrong::after{
+  position:absolute;top:58%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Space Grotesk',sans-serif;font-weight:900;
+  font-size:clamp(3rem,8vw,7rem);letter-spacing:2px;
+  padding:10px 30px;border-radius:22px;color:#fff;
+  text-shadow:0 4px 18px rgba(0,0,0,.32);
+  backdrop-filter:blur(3px);pointer-events:none;z-index:5;
+}
+.zone.correct::after{
+  content:'BENAR';background:rgba(6,95,70,.38);
+  border:3px solid rgba(187,247,208,.88);
+  box-shadow:0 18px 55px rgba(6,95,70,.28);
+}
+.zone.wrong::after{
+  content:'SALAH';background:rgba(153,27,27,.38);
+  border:3px solid rgba(254,202,202,.82);
+  box-shadow:0 18px 55px rgba(153,27,27,.24);
+}
 .zone.correct::after{content:'BENAR';background:rgba(6,95,70,.30);border:2px solid rgba(187,247,208,.75);box-shadow:0 14px 40px rgba(6,95,70,.18);}
 .zone.wrong::after{content:'SALAH';background:rgba(153,27,27,.30);border:2px solid rgba(254,202,202,.75);box-shadow:0 14px 40px rgba(153,27,27,.18);}  /* ---- Area atas: soal + pilihan jawaban dijadikan satu panel yang menempel di atas ---- */  #topArea{    position:absolute; top:0; left:0; right:0; z-index:10;    display:flex; flex-direction:column; align-items:stretch;  }  /* ---- Question box (top) ---- */  #qbox{    background:rgba(7,11,20,.95);    padding:54px 40px 5px;    display:flex; flex-direction:column; align-items:center; gap:3px;    text-align:center;  }  #qcounter{    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.78rem;    color:var(--muted); letter-spacing:.5px;  }  #qtext{    font-family:'Space Grotesk',sans-serif; font-weight:700;    font-size:clamp(1.05rem, 1.9vw, 1.6rem); line-height:1.2; max-width:1100px;  }  /* ---- Baris pilihan jawaban (sekarang tepat di bawah soal, bukan di dasar layar) ---- */  #answersRow{display:flex; width:100%;}  .answer-card{position:relative;width:50%;padding:16px 40px 18px;min-height:96px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,rgba(7,11,20,.95) 0%,rgba(7,11,20,.85) 55%,rgba(7,11,20,0) 100%);border:2px solid transparent;transition:background .28s ease,border-color .28s ease,box-shadow .28s ease,transform .28s ease,filter .28s ease;}  #cardA{justify-content:flex-start;}  #cardB{justify-content:flex-start; text-align:right; flex-direction:row-reverse;}  .letter{    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:2.4rem;    width:66px; height:66px; min-width:66px; border-radius:16px;    display:flex; align-items:center; justify-content:center; color:#fff;  }  #cardA .letter{background:var(--a);}  #cardB .letter{background:var(--b);}  .ans-text{font-size:clamp(1.2rem,2vw,1.65rem);font-weight:700;line-height:1.25;max-width:520px;}
 /* BRO_REVEAL_COLOR_PATCH_V1 */
