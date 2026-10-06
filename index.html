@@ -57,6 +57,16 @@
   background:rgba(185,28,28,.82);
   border-color:rgba(254,202,202,.92);
 }
+  /* REVEAL V3: blok merah/hijau memenuhi setengah layar + tulisan status besar samar seperti referensi */
+  #stage.answer-revealed #zoneA.correct,#stage.answer-revealed #zoneB.correct{background:rgba(34,197,94,.86);}
+  #stage.answer-revealed #zoneA.wrong,#stage.answer-revealed #zoneB.wrong{background:rgba(239,68,68,.86);}
+  .zone.correct::after,.zone.wrong::after{
+    top:56%;left:50%;padding:0;border:0;background:transparent;box-shadow:none;backdrop-filter:none;
+    font-size:clamp(4rem,10vw,10rem);font-weight:900;letter-spacing:2px;line-height:1;color:#fff;opacity:.20;
+    text-shadow:0 4px 22px rgba(0,0,0,.18);white-space:nowrap;
+  }
+  .zone.correct::after{content:'BENAR';}
+  .zone.wrong::after{content:'SALAH';}
   /* ---- Area atas: soal + pilihan jawaban dijadikan satu panel yang menempel di atas ---- */  #topArea{    position:absolute; top:0; left:0; right:0; z-index:10;    display:flex; flex-direction:column; align-items:stretch;  }  /* ---- Question box (top) ---- */  #qbox{    background:rgba(7,11,20,.95);    padding:54px 40px 5px;    display:flex; flex-direction:column; align-items:center; gap:3px;    text-align:center;  }  #qcounter{    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.78rem;    color:var(--muted); letter-spacing:.5px;  }  #qtext{    font-family:'Space Grotesk',sans-serif; font-weight:700;    font-size:clamp(1.05rem, 1.9vw, 1.6rem); line-height:1.2; max-width:1100px;  }  /* ---- Baris pilihan jawaban (sekarang tepat di bawah soal, bukan di dasar layar) ---- */  #answersRow{display:flex; width:100%;}  .answer-card{position:relative;width:50%;padding:16px 40px 18px;min-height:96px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,rgba(7,11,20,.95) 0%,rgba(7,11,20,.85) 55%,rgba(7,11,20,0) 100%);border:2px solid transparent;transition:background .28s ease,border-color .28s ease,box-shadow .28s ease,transform .28s ease,filter .28s ease;}  #cardA{justify-content:flex-start;}  #cardB{justify-content:flex-start; text-align:right; flex-direction:row-reverse;}  .letter{    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:2.4rem;    width:66px; height:66px; min-width:66px; border-radius:16px;    display:flex; align-items:center; justify-content:center; color:#fff;  }  #cardA .letter{background:var(--a);}  #cardB .letter{background:var(--b);}  .ans-text{font-size:clamp(1.2rem,2vw,1.65rem);font-weight:700;line-height:1.25;max-width:520px;}
 /* BRO_REVEAL_COLOR_PATCH_V1 */
 .answer-result-badge{display:none;position:absolute;top:8px;padding:6px 12px;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:.76rem;font-weight:800;letter-spacing:.6px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.18);box-shadow:0 5px 14px rgba(0,0,0,.25)}
@@ -605,7 +615,7 @@ function isHidden(id){
  return s.display==='none'||s.visibility==='hidden'||e.hidden;
 }
 function arenaActive(){
- return isHidden('mxStart') && isHidden('mxEditor') && isHidden('mxFinish');
+ return isHidden('mxStart') && isHidden('mxEditor') && isHidden('finishScreen');
 }
 function start(){
  init();
@@ -635,7 +645,7 @@ window.SANJARA_BGM_V13={
 });
 
 function watch(){
- ['mxStart','mxEditor','mxFinish'].forEach(function(id){
+ ['mxStart','mxEditor','finishScreen'].forEach(function(id){
    var e=document.getElementById(id);
    if(e)new MutationObserver(function(){setTimeout(sync,20);})
      .observe(e,{attributes:true,attributeFilter:['style','class','hidden']});
