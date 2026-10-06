@@ -594,6 +594,64 @@ input:focus,select:focus,textarea:focus{
 .answer-card.answer-wrong .answer-result-badge{
   background:#991b1b !important;color:#fff !important;border:2px solid #fecaca !important;
 }
+</style><style id="sanjara-readability-v6">
+/* SANJARA_READABILITY_TRANSPARENT_REVEAL_V6: kamera tetap terlihat, hasil kiri/kanan transparan, teks soal sangat terbaca */
+#stage #qbox{
+  background:linear-gradient(135deg,rgba(4,10,22,.86),rgba(11,16,34,.80)) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  box-shadow:0 14px 40px rgba(0,0,0,.36),inset 0 1px rgba(255,255,255,.07) !important;
+  backdrop-filter:blur(14px) saturate(115%) !important;
+}
+#stage #qcounter{
+  color:#dbeafe !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.72) !important;
+}
+#stage #qtext{
+  color:#ffffff !important;
+  font-weight:800 !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,.95) !important;
+  -webkit-text-fill-color:#ffffff !important;
+}
+
+/* Jangan biarkan zone lama menutup wajah/siswa saat reveal. */
+#stage.answer-revealed #zoneA.correct,
+#stage.answer-revealed #zoneA.wrong,
+#stage.answer-revealed #zoneB.correct,
+#stage.answer-revealed #zoneB.wrong{
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+/* Dua blok benar-benar setengah layar, tetapi transparan agar siswa tetap terlihat. */
+#stage #answerRevealOverlay{
+  z-index:8 !important;
+}
+#stage.answer-revealed #answerRevealLeft{
+  background:rgba(34,197,94,.24) !important;
+  box-shadow:inset -2px 0 0 rgba(255,255,255,.62),inset 0 0 90px rgba(255,255,255,.05) !important;
+}
+#stage.answer-revealed #answerRevealRight{
+  background:rgba(239,68,68,.24) !important;
+  box-shadow:inset 2px 0 0 rgba(255,255,255,.62),inset 0 0 90px rgba(255,255,255,.04) !important;
+}
+#stage.answer-revealed #answerRevealOverlay::before{
+  width:3px !important;
+  background:rgba(255,255,255,.72) !important;
+  box-shadow:0 0 12px rgba(255,255,255,.30) !important;
+}
+#stage.answer-revealed #answerRevealOverlay span{
+  opacity:.82 !important;
+  background:rgba(0,0,0,.08) !important;
+  border:2px solid rgba(255,255,255,.58) !important;
+  text-shadow:0 4px 16px rgba(0,0,0,.55) !important;
+}
+
+/* Kartu jawaban tetap mengikuti desain, tetapi teks selalu terang saat hasil dibuka. */
+#stage.answer-revealed #cardA .ans-text,
+#stage.answer-revealed #cardB .ans-text{
+  color:#fff !important;
+  text-shadow:0 2px 9px rgba(0,0,0,.85) !important;
+}
 </style></head><body><!-- ===== TAMBAHAN: gerbang password. Aplikasi (#stage) tetap terkunci sampai password benar. ===== --><div aria-labelledby="mxGateTitle" aria-modal="true" id="mxGate" role="dialog"> <div class="mxg-wash a"></div> <div class="mxg-wash b"></div> <div class="mxg-mid"></div> <form autocomplete="off" class="mxg-card" id="mxGateForm" novalidate=""> <h1 id="mxGateTitle">SANJARA EDU</h1> <p class="mxg-sub">Masukkan password untuk membuka aplikasi.</p> <div class="mxg-field"> <input aria-label="Password" autocapitalize="off" autocomplete="off" autocorrect="off" id="mxGatePw" placeholder="Password" spellcheck="false" type="password"/> <button aria-pressed="false" id="mxGateEye" type="button">Lihat</button> </div> <p aria-live="assertive" id="mxGateErr" role="alert"></p> <button id="mxGateGo" type="submit">Masuk</button> <p class="mxg-note">Setelah masuk, tekan <b>Aktifkan Kamera</b> jika ingin menggunakan kamera.</p> <div class="mxg-social"> <p class="mxg-social-text">Hubungi admin untuk mendapatkan password game</p> <div class="mxg-social-row"> <a aria-label="Hubungi Admin via WhatsApp" href="https://wa.me/6282144962780" rel="noopener noreferrer" target="_blank" title="WhatsApp Admin"> <svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12.001 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.763.462 3.486 1.34 5.004L2 22l5.116-1.318a9.958 9.958 0 0 0 4.885 1.278h.004c5.514 0 9.997-4.483 9.997-9.997 0-2.67-1.04-5.18-2.929-7.069a9.933 9.933 0 0 0-7.072-2.891zm0 18.164h-.003a8.153 8.153 0 0 1-4.158-1.14l-.298-.177-3.037.783.81-2.96-.194-.304a8.15 8.15 0 0 1-1.25-4.362c0-4.51 3.67-8.18 8.184-8.18a8.13 8.13 0 0 1 5.786 2.399 8.126 8.126 0 0 1 2.395 5.788c0 4.51-3.671 8.18-8.235 8.18z"></path></svg><span>WhatsApp</span> </a> <a aria-label="Instagram @sanjara039" href="https://instagram.com/sanjara039" rel="noopener noreferrer" target="_blank" title="Instagram @sanjara039"> <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><rect height="18" rx="5" ry="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" fill="currentColor" r="1.1" stroke="none"></circle></svg> </a> <a aria-label="TikTok @sanjara039" href="https://www.tiktok.com/@sanjara039?_r=1&_t=ZS-9AJE3cGukPE" rel="noopener noreferrer" target="_blank" title="TikTok @sanjara039"> <svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M16.5 3c.36 1.94 1.6 3.34 3.5 3.8v2.63a6.86 6.86 0 0 1-3.5-1.17v6.1a5.64 5.64 0 1 1-5.64-5.64c.2 0 .4.01.6.04v2.7a2.97 2.97 0 1 0 2.4 2.9V3h2.64z"></path></svg> </a> </div> </div> <p style="margin-top:16px; font-size:0.75rem; line-height:1.5; text-align:center; color:#e53935;">Aplikasi ini adalah karya asli SANJARA (@sanjara039). Jika Anda mendapatkan aplikasi ini dari pihak lain (bukan langsung dari admin resmi di atas), kemungkinan ini hasil jual-beli tanpa izin. Mohon laporkan ke kontak di atas.</p> </form></div><script id="mx-gate-script">(function(){  'use strict';  /* Password tidak disimpan sebagai teks biasa, hanya sidik jarinya (SHA-256 + garam). */  var SALT = 'mx.kuis.v1|';  var HASH = '7958696ca1bdc6890e6bd2dc2bcb238275876aba764755cf88c9303963d5ba95';  var MAX_TRIES = 5, LOCK_SECONDS = 30;  /* SHA-256 murni JavaScript: tetap jalan di browser IFP lama dan di alamat http. */  function sha256(str){    var mp = Math.pow, mw = mp(2, 32), i, j, out = '';    var words = [], hash = [], k = [], composite = {};    var bits = str.length * 8;    str = unescape(encodeURIComponent(str)); bits = str.length * 8;    for(var cand = 2, n = 0; n < 64; cand++){      if(!composite[cand]){        for(i = 0; i < 313; i += cand) composite[i] = cand;        hash[n] = (mp(cand, .5) * mw) | 0;        k[n++] = (mp(cand, 1 / 3) * mw) | 0;      }    }    str += '\x80';    while(str.length % 64 - 56) str += '\x00';    for(i = 0; i < str.length; i++){      j = str.charCodeAt(i);      words[i >> 2] |= j << ((3 - i) % 4) * 8;    }    words[words.length] = ((bits / mw) | 0);    words[words.length] = (bits);    for(j = 0; j < words.length;){      var w = words.slice(j, j += 16), old = hash;      hash = hash.slice(0, 8);      for(i = 0; i < 64; i++){        var w15 = w[i - 15], w2 = w[i - 2];        var a = hash[0], e = hash[4];        var t1 = hash[7] + (((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7)))               + ((e & hash[5]) ^ (~e & hash[6])) + k[i]               + (w[i] = (i < 16) ? w[i] : (                   w[i - 16]                   + (((w15 >>> 7) | (w15 << 25)) ^ ((w15 >>> 18) | (w15 << 14)) ^ (w15 >>> 3))                   + w[i - 7]                   + (((w2 >>> 17) | (w2 << 15)) ^ ((w2 >>> 19) | (w2 << 13)) ^ (w2 >>> 10))                 ) | 0);        var t2 = (((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10)))               + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));        hash = [(t1 + t2) | 0].concat(hash);        hash[4] = (hash[4] + t1) | 0;      }      for(i = 0; i < 8; i++) hash[i] = (hash[i] + old[i]) | 0;    }    for(i = 0; i < 8; i++){      for(j = 3; j + 1; j--){        var b = (hash[i] >> (j * 8)) & 255;        out += ((b < 16) ? 0 : '') + b.toString(16);      }    }    return out;  }  var root = document.documentElement;  var gate = document.getElementById('mxGate');  var form = document.getElementById('mxGateForm');  var pw = document.getElementById('mxGatePw');  var eye = document.getElementById('mxGateEye');  var err = document.getElementById('mxGateErr');  var go = document.getElementById('mxGateGo');  var fails = 0, lockTimer = null;  eye.addEventListener('click', function(){    var show = pw.type === 'password';    pw.type = show ? 'text' : 'password';    eye.textContent = show ? 'Sembunyikan' : 'Lihat';    eye.setAttribute('aria-pressed', show ? 'true' : 'false');    pw.focus();  });  function startLock(){    var left = LOCK_SECONDS;    go.disabled = true; pw.disabled = true;    err.textContent = 'Terlalu banyak percobaan. Coba lagi dalam ' + left + ' detik.';    lockTimer = setInterval(function(){      left--;      if(left <= 0){        clearInterval(lockTimer); lockTimer = null;        fails = 0; go.disabled = false; pw.disabled = false;        err.textContent = ''; pw.focus();      } else {        err.textContent = 'Terlalu banyak percobaan. Coba lagi dalam ' + left + ' detik.';      }    }, 1000);  }  function unlock(){    root.classList.remove('mx-locked');    var stage = document.getElementById('stage');   /* dicari saat dibuka: elemen ini baru ada setelah skrip ini dibaca */ if(stage) stage.removeAttribute('inert');    if(gate && gate.parentNode) gate.parentNode.removeChild(gate);    /* Tutup keyboard layar (di IFP keyboard sering berupa overlay yang membuat kotak izin gagal muncul) */ /* lalu minta izin kamera sesaat kemudian, saat layar sudah bersih. */ try{ if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); }catch(_){}    /* Jangan meminta kamera otomatis setelah password. Beberapa browser/IFP hanya
        mengizinkan permission prompt dari aksi pengguna langsung. Kamera diaktifkan
        lewat tombol #startCamBtn agar selalu berasal dari user gesture. */
