@@ -81,28 +81,42 @@
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
 }
+/* SANJARA_SPLIT_BLOCK_V5 — warna hasil benar/salah harus terbaca jelas */
 #answerRevealLeft{
-  background:rgba(18,180,82,.80);
-  box-shadow:inset 0 0 120px rgba(255,255,255,.10), inset -3px 0 0 rgba(255,255,255,.42);
+  background:rgba(18,200,82,.90);
+  box-shadow:inset 0 0 90px rgba(255,255,255,.10), inset -4px 0 0 rgba(255,255,255,.90);
 }
 #answerRevealRight{
-  background:rgba(222,35,45,.80);
-  box-shadow:inset 0 0 120px rgba(255,255,255,.08), inset 3px 0 0 rgba(255,255,255,.35);
+  background:rgba(226,35,46,.90);
+  box-shadow:inset 0 0 90px rgba(255,255,255,.08), inset 4px 0 0 rgba(255,255,255,.90);
 }
 #answerRevealOverlay span{
   font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(3.2rem,9vw,9rem);
+  font-size:clamp(3.4rem,10vw,10rem);
   line-height:1;
   font-weight:900;
   letter-spacing:2px;
   color:#fff;
-  opacity:.98;
-  text-shadow:0 5px 24px rgba(0,0,0,.35);
-  padding:14px 28px;
+  opacity:1;
+  text-shadow:0 5px 24px rgba(0,0,0,.42);
+  padding:16px 30px;
   border-radius:22px;
-  background:rgba(0,0,0,.16);
-  border:3px solid rgba(255,255,255,.72);
-  box-shadow:0 16px 50px rgba(0,0,0,.22);
+  background:rgba(0,0,0,.22);
+  border:4px solid rgba(255,255,255,.92);
+  box-shadow:0 18px 55px rgba(0,0,0,.28);
+}
+#answerRevealOverlay::before{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:5px;
+  background:rgba(255,255,255,.95);
+  box-shadow:0 0 18px rgba(255,255,255,.45);
+  z-index:4;
+}
+#stage.answer-revealed #answerRevealOverlay > div{
+  transition:background .18s ease;
 }
 #stage.answer-revealed #answerRevealOverlay{
   opacity:1; visibility:visible;
